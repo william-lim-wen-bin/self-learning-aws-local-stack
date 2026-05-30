@@ -1,5 +1,5 @@
 import { APIGatewayProxyResult } from "aws-lambda";
-import { SuccessResponseBody } from "../types/response";
+import { SuccessResponseBody } from "../type/response";
 
 export const successResponse = <T>(
   resBody: SuccessResponseBody<T>,
