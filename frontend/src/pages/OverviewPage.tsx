@@ -1,14 +1,15 @@
 import { Tiles } from 'braid-design-system';
 import { useEffect, useState } from 'react';
+
+import { ProductCard, CreateProductCard } from 'src/components/atoms';
 import {
   createProduct,
   deleteProduct,
   getProducts,
 } from 'src/services/productService';
 import type { NewProduct, Product } from 'src/types';
-import { ProductCard, CreateProductCard } from './atoms';
 
-export const Test = () => {
+export default () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
