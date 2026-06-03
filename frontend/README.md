@@ -12,6 +12,18 @@ Then, install dependencies:
 $ pnpm i
 ```
 
+After that, kindly update the API url in:
+```ts
+// in frontend/src/constants.ts
+export const BASE_API_URL = ...
+```
+
+Then, feel free to run the web app with:
+
+```sh
+$ pnpm run start
+```
+
 ## Workflow
 
 Start a local development server:
