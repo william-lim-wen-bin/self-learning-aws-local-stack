@@ -1,4 +1,5 @@
 import type { Product } from 'src/types';
+
 import mapToBaseResponse from './baseMapper';
 
 interface ProductsPayload {

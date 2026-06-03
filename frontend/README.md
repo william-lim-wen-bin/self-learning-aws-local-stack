@@ -13,6 +13,7 @@ $ pnpm i
 ```
 
 After that, kindly update the API url in:
+
 ```ts
 // in frontend/src/constants.ts
 export const BASE_API_URL = ...

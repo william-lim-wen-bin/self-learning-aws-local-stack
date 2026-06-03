@@ -4,10 +4,10 @@ import { BraidProvider } from 'braid-design-system';
 import seekJobs from 'braid-design-system/themes/seekJobs';
 import { StrictMode } from 'react';
 
+import OverviewPage from 'src/pages/OverviewPage';
 import type { Environment } from 'src/types';
 
 import Layout from './templates/Layout/Layout';
-import OverviewPage from 'src/pages/OverviewPage';
 
 interface AppProps {
   environment: Environment;
