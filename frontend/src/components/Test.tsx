@@ -1,8 +1,12 @@
 import { Tiles } from 'braid-design-system';
 import { useEffect, useState } from 'react';
-import { deleteProduct, getProducts } from 'src/services/productService';
-import type { Product } from 'src/types';
-import ProductCard from './atoms/ProductCard/ProductCard';
+import {
+  createProduct,
+  deleteProduct,
+  getProducts,
+} from 'src/services/productService';
+import type { NewProduct, Product } from 'src/types';
+import { ProductCard, CreateProductCard } from './atoms';
 
 export const Test = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -24,11 +28,25 @@ export const Test = () => {
     setProducts(newProducts);
   };
 
+  const handleCreateProduct = async (newProduct: NewProduct) => {
+    await createProduct(newProduct);
+    const newProducts = [
+      ...products,
+      {
+        productId: '1',
+        productName: newProduct.productName,
+        productPrice: newProduct.productPrice,
+      },
+    ];
+    setProducts(newProducts);
+  };
+
   return (
     <Tiles
       space="gutter"
       columns={{ mobile: 1, tablet: 2, desktop: 3, wide: 4 }}
     >
+      <CreateProductCard onCreate={handleCreateProduct} />
       {products.map((product) => (
         <ProductCard
           key={product.productId}

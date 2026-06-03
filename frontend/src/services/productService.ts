@@ -1,6 +1,5 @@
-import mapToBaseResponse from 'src/mappers/baseMapper';
 import { mapToProducts } from 'src/mappers/productMapper';
-import type { Product } from 'src/types';
+import type { NewProduct, Product } from 'src/types';
 
 const BASE_API_URL =
   'https://we1wv95vhu.execute-api.localhost.localstack.cloud:4566/prod/';
@@ -15,5 +14,14 @@ export const deleteProduct = async (productId: string): Promise<void> => {
   await fetch(`${BASE_API_URL}/product`, {
     method: 'DELETE',
     body: JSON.stringify({ productId }),
+  });
+};
+
+export const createProduct = async (
+  newProduct: NewProduct,
+): Promise<void> => {
+  await fetch(`${BASE_API_URL}/create-product`, {
+    method: 'POST',
+    body: JSON.stringify(newProduct),
   });
 };
