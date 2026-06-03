@@ -6,6 +6,7 @@ import { StrictMode } from 'react';
 
 import { NextSteps } from './NextSteps';
 import type { Environment } from 'src/types';
+import { Test } from './Test';
 
 interface AppProps {
   environment: Environment;
@@ -14,6 +15,7 @@ interface AppProps {
 export const App = ({ environment }: AppProps) => (
   <StrictMode>
     <BraidProvider theme={seekJobs}>
+      <Test />
       <NextSteps environment={environment} />
     </BraidProvider>
   </StrictMode>
