@@ -1,12 +1,14 @@
 import 'braid-design-system/reset';
 
-import { BraidProvider, PageBlock } from 'braid-design-system';
+import { BraidProvider } from 'braid-design-system';
 import seekJobs from 'braid-design-system/themes/seekJobs';
 import { StrictMode } from 'react';
 
-import { NextSteps } from './NextSteps';
 import type { Environment } from 'src/types';
+
+import { NextSteps } from './NextSteps';
 import { Test } from './Test';
+import Layout from './templates/Layout/Layout';
 
 interface AppProps {
   environment: Environment;
@@ -15,9 +17,9 @@ interface AppProps {
 export const App = ({ environment }: AppProps) => (
   <StrictMode>
     <BraidProvider theme={seekJobs}>
-      <PageBlock>
+      <Layout environment={environment}>
         <Test />
-      </PageBlock>
+      </Layout>
       <NextSteps environment={environment} />
     </BraidProvider>
   </StrictMode>
