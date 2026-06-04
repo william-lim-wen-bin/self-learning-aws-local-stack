@@ -2,6 +2,7 @@ import { Tiles } from 'braid-design-system';
 import { useEffect, useState } from 'react';
 
 import { ProductCard, CreateProductCard } from 'src/components/atoms';
+import { PageLayout } from 'src/components/templates';
 import {
   createProduct,
   deleteProduct,
@@ -43,18 +44,20 @@ export default () => {
   };
 
   return (
-    <Tiles
-      space="gutter"
-      columns={{ mobile: 1, tablet: 2, desktop: 3, wide: 4 }}
-    >
-      <CreateProductCard onCreate={handleCreateProduct} />
-      {products.map((product) => (
-        <ProductCard
-          key={product.productId}
-          product={product}
-          onDelete={handleDeleteProduct}
-        />
-      ))}
-    </Tiles>
+    <PageLayout pageTitle="Overview">
+      <Tiles
+        space="gutter"
+        columns={{ mobile: 1, tablet: 2, desktop: 3, wide: 4 }}
+      >
+        <CreateProductCard onCreate={handleCreateProduct} />
+        {products.map((product) => (
+          <ProductCard
+            key={product.productId}
+            product={product}
+            onDelete={handleDeleteProduct}
+          />
+        ))}
+      </Tiles>
+    </PageLayout>
   );
 };

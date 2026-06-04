@@ -13,7 +13,7 @@ interface ProductCardProps {
   onDelete: (productId: string) => void;
 }
 
-export default ({ product, onDelete }: ProductCardProps) => (
+export const ProductCard = ({ product, onDelete }: ProductCardProps) => (
   <Card>
     <Spread space="gutter">
       <Text>{product.productName}</Text>

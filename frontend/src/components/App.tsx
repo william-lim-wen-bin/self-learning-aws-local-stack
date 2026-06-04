@@ -7,7 +7,7 @@ import { StrictMode } from 'react';
 import OverviewPage from 'src/pages/OverviewPage';
 import type { Environment } from 'src/types';
 
-import Layout from './templates/Layout/Layout';
+import { AppLayout } from './templates/AppLayout/AppLayout';
 
 interface AppProps {
   environment: Environment;
@@ -16,9 +16,9 @@ interface AppProps {
 export const App = ({ environment }: AppProps) => (
   <StrictMode>
     <BraidProvider theme={seekJobs}>
-      <Layout environment={environment}>
+      <AppLayout environment={environment}>
         <OverviewPage />
-      </Layout>
+      </AppLayout>
     </BraidProvider>
   </StrictMode>
 );

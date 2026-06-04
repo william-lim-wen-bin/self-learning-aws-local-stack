@@ -6,7 +6,7 @@ interface CreateProductCardProps {
   onCreate: (newProduct: NewProduct) => void;
 }
 
-export default ({ onCreate }: CreateProductCardProps) => (
+export const CreateProductCard = ({ onCreate }: CreateProductCardProps) => (
   <Box
     onClick={() =>
       onCreate({

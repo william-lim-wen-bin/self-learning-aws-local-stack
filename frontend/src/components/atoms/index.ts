@@ -1,2 +1,3 @@
-export { default as CreateProductCard } from './CreateProductCard/CreateProductCard';
-export { default as ProductCard } from './ProductCard/ProductCard';
+export { CreateProductCard } from './CreateProductCard/CreateProductCard';
+export { ProductCard } from './ProductCard/ProductCard';
+export { EnvironmentBanner } from './EnvironmentBanner/EnvironmentBanner';
