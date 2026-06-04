@@ -1,7 +1,7 @@
 import { Tiles } from 'braid-design-system';
 import { useEffect, useState } from 'react';
 
-import { ProductCard, CreateProductCard } from 'src/components/atoms';
+import { CreateProductCard } from 'src/components/atoms';
 import { PageLayout } from 'src/components/templates';
 import {
   createProduct,
@@ -10,7 +10,9 @@ import {
 } from 'src/services/productService';
 import type { NewProduct, Product } from 'src/types';
 
-export default () => {
+import { ProductCard } from '../molecules';
+
+export const OverviewPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {

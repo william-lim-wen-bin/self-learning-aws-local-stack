@@ -4,7 +4,7 @@ import { BraidProvider } from 'braid-design-system';
 import seekJobs from 'braid-design-system/themes/seekJobs';
 import { StrictMode } from 'react';
 
-import OverviewPage from 'src/pages/OverviewPage';
+import { OverviewPage } from 'src/components/pages';
 import type { Environment } from 'src/types';
 
 import { AppLayout } from './templates/AppLayout/AppLayout';

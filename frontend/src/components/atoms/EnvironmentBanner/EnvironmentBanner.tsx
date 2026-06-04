@@ -1,4 +1,5 @@
 import { Box, Text, Strong } from 'braid-design-system';
+
 import type { Environment } from 'src/types';
 
 interface EnvironmentBannerProps {

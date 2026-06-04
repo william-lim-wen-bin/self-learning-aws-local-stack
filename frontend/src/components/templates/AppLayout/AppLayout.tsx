@@ -1,6 +1,6 @@
 import { PageBlock, Stack } from 'braid-design-system';
-import { EnvironmentBanner } from 'src/components/atoms';
 
+import { EnvironmentBanner } from 'src/components/atoms';
 import type { Environment } from 'src/types';
 
 interface AppLayoutProps {
