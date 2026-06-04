@@ -10,10 +10,12 @@ import {
 } from 'src/services/productService';
 import type { NewProduct, Product } from 'src/types';
 
-import { ProductCard } from '../molecules';
+import { CreateProductDrawer, ProductCard } from '../molecules';
 
 export const OverviewPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [createProductDrawerOpen, setCreateProductDrawerOpen] =
+    useState<boolean>(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -33,25 +35,24 @@ export const OverviewPage = () => {
   };
 
   const handleCreateProduct = async (newProduct: NewProduct) => {
-    await createProduct(newProduct);
-    const newProducts = [
-      ...products,
-      {
-        productId: '1',
-        productName: newProduct.productName,
-        productPrice: newProduct.productPrice,
-      },
-    ];
+    const createdProduct = await createProduct(newProduct);
+    const newProducts = [createdProduct, ...products];
     setProducts(newProducts);
   };
 
   return (
     <PageLayout pageTitle="Overview">
+      <CreateProductDrawer
+        open={createProductDrawerOpen}
+        onClose={() => setCreateProductDrawerOpen(false)}
+        onCreate={handleCreateProduct}
+      />
+
       <Tiles
         space="gutter"
         columns={{ mobile: 1, tablet: 2, desktop: 3, wide: 4 }}
       >
-        <CreateProductCard onCreate={handleCreateProduct} />
+        <CreateProductCard onClick={() => setCreateProductDrawerOpen(true)} />
         {products.map((product) => (
           <ProductCard
             key={product.productId}

@@ -1,5 +1,5 @@
 import { BASE_API_URL } from 'src/constants';
-import { mapToProducts } from 'src/mappers/productMapper';
+import { mapToCreateProduct, mapToProducts } from 'src/mappers/productMapper';
 import type { NewProduct, Product } from 'src/types';
 
 export const getProducts = async (): Promise<Product[]> => {
@@ -15,9 +15,13 @@ export const deleteProduct = async (productId: string): Promise<void> => {
   });
 };
 
-export const createProduct = async (newProduct: NewProduct): Promise<void> => {
-  await fetch(`${BASE_API_URL}/create-product`, {
+export const createProduct = async (
+  newProduct: NewProduct,
+): Promise<Product> => {
+  const response = await fetch(`${BASE_API_URL}/create-product`, {
     method: 'POST',
     body: JSON.stringify(newProduct),
   });
+  const { productId } = await mapToCreateProduct(response);
+  return { productId, ...newProduct };
 };
