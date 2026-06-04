@@ -1,4 +1,4 @@
-import { Tiles } from 'braid-design-system';
+import { Stack, Tiles } from 'braid-design-system';
 import { useEffect, useState } from 'react';
 
 import { CreateProductCard } from 'src/components/atoms';
@@ -41,26 +41,29 @@ export const OverviewPage = () => {
   };
 
   return (
-    <PageLayout pageTitle="Overview">
+    <PageLayout pageTitle="Overview Page">
       <CreateProductDrawer
         open={createProductDrawerOpen}
         onClose={() => setCreateProductDrawerOpen(false)}
         onCreate={handleCreateProduct}
       />
 
-      <Tiles
-        space="gutter"
-        columns={{ mobile: 1, tablet: 2, desktop: 3, wide: 4 }}
-      >
+      <Stack space="gutter">
         <CreateProductCard onClick={() => setCreateProductDrawerOpen(true)} />
-        {products.map((product) => (
-          <ProductCard
-            key={product.productId}
-            product={product}
-            onDelete={handleDeleteProduct}
-          />
-        ))}
-      </Tiles>
+
+        <Tiles
+          space="gutter"
+          columns={{ mobile: 1, tablet: 2, desktop: 3, wide: 4 }}
+        >
+          {products.map((product) => (
+            <ProductCard
+              key={product.productId}
+              product={product}
+              onDelete={handleDeleteProduct}
+            />
+          ))}
+        </Tiles>
+      </Stack>
     </PageLayout>
   );
 };

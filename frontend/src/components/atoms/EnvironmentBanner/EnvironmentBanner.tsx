@@ -7,7 +7,7 @@ interface EnvironmentBannerProps {
 }
 
 export const EnvironmentBanner = ({ environment }: EnvironmentBannerProps) => (
-  <Box padding="xsmall" background="promote">
+  <Box padding="xsmall" background="brandAccent">
     <Text align="center" size="small">
       You are running on <Strong>{environment}</Strong>
     </Text>

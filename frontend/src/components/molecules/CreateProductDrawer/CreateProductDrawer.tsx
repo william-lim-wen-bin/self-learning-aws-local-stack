@@ -1,5 +1,6 @@
 import { Button, Drawer, IconAdd, Stack, TextField } from 'braid-design-system';
 import { useState } from 'react';
+
 import type { NewProduct } from 'src/types';
 
 interface CreateProductDrawerProps {
@@ -59,7 +60,7 @@ export const CreateProductDrawer = ({
           />
           <TextField
             label="Product Price"
-            prefix="RM"
+            prefix="$"
             type="number"
             value={productPrice}
             tone={productPriceError ? 'critical' : 'neutral'}
