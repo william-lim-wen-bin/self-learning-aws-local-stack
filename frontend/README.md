@@ -4,7 +4,7 @@ This project is powered by [sku](https://github.com/seek-oss/sku), [braid](https
 
 ## Getting Started
 
-First of all, make sure you&#39;ve installed [pnpm](https://pnpm.io/installation).
+First of all, make sure you've installed [pnpm](https://pnpm.io/installation).
 
 Then, install dependencies:
 
@@ -22,7 +22,7 @@ export const BASE_API_URL = ...
 Then, feel free to run the web app with:
 
 ```sh
-$ pnpm run start
+$ pnpm start
 ```
 
 ## Workflow
@@ -30,24 +30,24 @@ $ pnpm run start
 Start a local development server:
 
 ```sh
-$ pnpm run start
+$ pnpm start
 ```
 
 Run unit tests:
 
 ```sh
-$ pnpm run test
+$ pnpm test
 ```
 
 Lint and format code:
 
 ```sh
-$ pnpm run lint
-$ pnpm run format
+$ pnpm lint
+$ pnpm format
 ```
 
 Build assets for production:
 
 ```sh
-$ pnpm run build
+$ pnpm build
 ```
