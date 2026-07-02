@@ -2,7 +2,7 @@ import { renderToString } from 'react-dom/server';
 import type { Render } from 'sku';
 
 import { App } from './components/App';
-import type { ClientContext, Environment } from './types';
+import type { Environment } from './types';
 
 interface RenderContext {
   appHtml: string;
