@@ -1,76 +1,158 @@
-import { Button, Drawer, IconAdd, Stack, TextField } from 'braid-design-system';
-import { useState } from 'react';
+import {
+  Button,
+  Drawer,
+  IconAdd,
+  Notice,
+  Stack,
+  Text,
+  TextField,
+  Textarea,
+} from 'braid-design-system';
 
+import {
+  CreateProductDrawerProvider,
+  useCreateProductDrawerContext,
+  validateCreateProductDrawer,
+} from 'src/providers';
 import type { NewProduct } from 'src/types';
 
 interface CreateProductDrawerProps {
   open?: boolean;
   onClose?: () => void;
-  onCreate?: (newProduct: NewProduct) => void;
+  onCreate?: (newProduct: NewProduct) => Promise<void>;
 }
 
 export const CreateProductDrawer = ({
   open = false,
   onClose = () => {},
   onCreate,
+}: CreateProductDrawerProps) => (
+  <CreateProductDrawerProvider>
+    <CreateProductDrawerContent
+      open={open}
+      onClose={onClose}
+      onCreate={onCreate}
+    />
+  </CreateProductDrawerProvider>
+);
+
+const CreateProductDrawerContent = ({
+  open = false,
+  onClose = () => {},
+  onCreate,
 }: CreateProductDrawerProps) => {
-  const [productName, setProductName] = useState<string>('');
-  const [productNameError, setProductNameError] = useState<string>('');
+  const { state, dispatch } = useCreateProductDrawerContext();
 
-  const [productPrice, setProductPrice] = useState<string>('');
-  const [productPriceError, setProductPriceError] = useState<string>('');
+  const handleDrawerClose = () => {
+    dispatch({ type: 'RESET' });
+    onClose();
+  };
 
-  const handleCreate = () => {
-    setProductNameError('');
-    setProductPriceError('');
+  const handleCreate = async () => {
+    try {
+      dispatch({ type: 'SUBMIT_START' });
 
-    if (!productName) {
-      setProductNameError('Product name is required');
-      return;
+      const errors = validateCreateProductDrawer(state.values);
+      if (Object.keys(errors).length > 0) {
+        dispatch({ type: 'SET_ERRORS', errors });
+        return;
+      }
+
+      const { productName, productPrice, productDescription } = state.values;
+      await onCreate?.({
+        productName,
+        productPrice: Number(productPrice),
+        productDescription: productDescription,
+      });
+
+      handleDrawerClose();
+    } catch {
+      dispatch({ type: 'SUBMIT_ERROR' });
+    } finally {
+      dispatch({ type: 'SUBMIT_END' });
     }
-
-    if (!productPrice) {
-      setProductPriceError('Product price is required');
-      return;
-    }
-
-    const productPriceNum = Number(productPrice);
-    if (productPriceNum <= 0) {
-      setProductPriceError('Product price must be greater than 0');
-      return;
-    }
-
-    onCreate?.({ productName, productPrice: productPriceNum });
-    onClose?.();
   };
 
   return (
-    <Drawer title="Create Product" width="small" open={open} onClose={onClose}>
+    <Drawer
+      title="Create Product"
+      width="small"
+      open={open}
+      onClose={handleDrawerClose}
+    >
       <Stack space="xxlarge">
         <Stack space="gutter">
           <TextField
             label="Product Name"
             type="text"
             placeholder="Apple"
-            value={productName}
-            tone={productNameError ? 'critical' : 'neutral'}
-            message={productNameError}
-            onChange={(e) => setProductName(e.target.value)}
-            onClear={() => setProductName('')}
+            value={state.values.productName}
+            tone={state.errors.productName ? 'critical' : 'neutral'}
+            message={state.errors.productName}
+            onChange={(e) =>
+              dispatch({
+                type: 'SET_FIELD',
+                field: 'productName',
+                value: e.target.value,
+              })
+            }
+            onClear={() =>
+              dispatch({
+                type: 'SET_FIELD',
+                field: 'productName',
+                value: '',
+              })
+            }
           />
           <TextField
             label="Product Price"
             prefix="$"
             type="number"
-            value={productPrice}
-            tone={productPriceError ? 'critical' : 'neutral'}
-            message={productPriceError}
-            onChange={(e) => setProductPrice(e.target.value)}
-            onClear={() => setProductPrice('')}
+            value={state.values.productPrice}
+            tone={state.errors.productPrice ? 'critical' : 'neutral'}
+            message={state.errors.productPrice}
+            onChange={(e) =>
+              dispatch({
+                type: 'SET_FIELD',
+                field: 'productPrice',
+                value: e.target.value,
+              })
+            }
+            onClear={() =>
+              dispatch({
+                type: 'SET_FIELD',
+                field: 'productPrice',
+                value: '',
+              })
+            }
           />
+          <Textarea
+            label="Product Description"
+            placeholder="Fresh and crisp"
+            value={state.values.productDescription}
+            tone={state.errors.productDescription ? 'critical' : 'neutral'}
+            message={state.errors.productDescription}
+            onChange={(e) =>
+              dispatch({
+                type: 'SET_FIELD',
+                field: 'productDescription',
+                value: e.target.value,
+              })
+            }
+          />
+          {state.isGenericError && (
+            <Notice tone="critical">
+              <Text>Something went wrong, please try again later.</Text>
+            </Notice>
+          )}
         </Stack>
 
-        <Button tone="formAccent" icon={<IconAdd />} onClick={handleCreate}>
+        <Button
+          tone="formAccent"
+          loading={state.isLoading}
+          icon={<IconAdd />}
+          onClick={handleCreate}
+        >
           Create
         </Button>
       </Stack>
